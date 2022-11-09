@@ -13,7 +13,7 @@
             <li class="list-group-item"><a href="{{route('classroom.index')}}" style="text-decoration: none; color: black;" onMouseOver="this.style.color='green'" onMouseOut="this.style.color='black'">Assignment</a></li>
         </div>
         <div class="md-3">
-            <li class="list-group-item"><a href="" style="text-decoration: none; color: black;" onMouseOver="this.style.color='green'" onMouseOut="this.style.color='black'">Challenge</a></li>
+            <li class="list-group-item"><a href="{{route('challenge.index')}}" style="text-decoration: none; color: black;" onMouseOver="this.style.color='green'" onMouseOut="this.style.color='black'">Challenge</a></li>
         </div>
     </div>
 @endsection

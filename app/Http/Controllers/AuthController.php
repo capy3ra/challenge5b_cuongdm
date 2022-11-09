@@ -11,11 +11,12 @@ use App\Models\User;
 class AuthController extends Controller
 {
     public function login(){
+
         return view('login');
     }
 
     public function checkLogin(Request $request){
-        // dd(Hash::make($request->password));
+//         dd(Hash::make($request->password));
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
             return redirect()->route('index');
         }
@@ -32,6 +33,22 @@ class AuthController extends Controller
     }
 
     public function updateProfile(Request $request){
+//        $user = Auth::user();
+//        if($request->hasFile('avatar')){
+//
+//            $nameFile = $request->file('avatar')->getClientOriginalName();
+//            $avatar = $request->file('avatar')->storeAs(
+//                'avatars',
+//                Str::random(10)."_".$nameFile,
+//            );
+//            $data = [
+//                'email' => $request->input('email'),
+//                'phone_number' => $request->input('phone-number'),
+//                'avatar' => $avatar,
+//            ];
+//            $user->update($data);
+//            return redirect()->route('profile.index')->with('success', 'Update data and change avatar successfully');
+//        }
         $user = Auth::user();
         if($request->hasFile('avatar')){
             $nameFile = $request->file('avatar')->getClientOriginalName();
@@ -44,7 +61,7 @@ class AuthController extends Controller
                 Str::random(10)."_".$nameFile,
                 'public',
             );
-            
+
             $data = [
                 'email' => $request->input('email'),
                 'phone_number' => $request->input('phone-number'),
@@ -83,6 +100,4 @@ class AuthController extends Controller
 
         return back()->with("status", "Password changed successfully!");
     }
-
-    
 }

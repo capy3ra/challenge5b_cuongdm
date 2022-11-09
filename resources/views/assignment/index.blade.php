@@ -10,7 +10,9 @@
     @endif
     <div class="panel-body">
         @if(session('success'))
-        {{session('success')}}
+            <div class="alert alert-success">
+                {{session('success')}}
+            </div>
         @endif()
         @foreach($assignments as $assignment)
         <div class="mb-3" style="border-radius: 5px;">
@@ -30,6 +32,6 @@
                 <td><a href="{{route('classroom.assignment.submit', $assignment->id)}}"><button class="btn btn-success">Submit</button></a></td>
             @endif
             <hr/>
-        </div>  
-        @endforeach        
+        </div>
+        @endforeach
 @endsection()

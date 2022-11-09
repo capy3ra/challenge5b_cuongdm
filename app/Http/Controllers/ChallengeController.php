@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ChallengeController extends Controller
@@ -47,8 +48,23 @@ class ChallengeController extends Controller
 
     public function submit(Request $request){
         $ans = $request->input('ans');
-        $result = $request->input('id_challenge');
-        
-        dd($result);
+        $id_challenge = $request->input('id_challenge');
+        $challenge = Challenge::find($id_challenge);
+        $result = $challenge->path;
+        $path = storage_path('app/'.$result);
+        $pos1 = strpos($result, '/');
+        $pos2 = strpos($result, '.');
+        $result = substr($result, $pos1 + 1, $pos2 - $pos1 - 1);
+        if(strtolower($ans) == strtolower($result)){
+            $indicate = file_get_contents($path, true);
+            return redirect(route('challenge.answer', $id_challenge))->with(
+                array(
+                    'success' => "Correct",
+                    'indicate' => $indicate,
+                )
+            );
+        }else{
+            return redirect(route('challenge.answer', $id_challenge))->with('error', 'Incorrect !!');
+        }
     }
 }

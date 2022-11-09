@@ -6,7 +6,12 @@
 <br/>
 </div>
 <div class="panel-body">
-<form method="post" action="{{route('challenge.submit')}}">  
+    @if(session('error'))
+        <div class="alert alert-danger">{{session('error')}}</div>
+    @elseif(session('success'))
+        <div class="alert alert-success">{{session('success')}}</div>
+    @endif
+<form method="post" action="{{route('challenge.submit')}}">
     @csrf
     <div class="mb-3">
         <h1><small>Title:  </small><strong>{{$challenge->title}}</strong></h1>
@@ -27,5 +32,10 @@
     </div>
 </form>
 </div>
-
-@endsection 
+</hr>
+<div class="mb-3">
+    <pre>
+        {{session('indicate')}}
+    </pre>
+</div>
+@endsection

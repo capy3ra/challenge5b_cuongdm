@@ -2,13 +2,15 @@
 @section('content')
     <div class="panel-heading">
         <br/>
-        <h1 style="color:green;text-align:center;">Your information</h1>
+        <h1 style="color:green;text-align:center;">Information of {{$curuser->full_name}}</h1>
         <br/>
     </div>
 <form method="post">
-    <div class="mb-3">
-        <img src="https://tutihealth.com/wp-content/uploads/2022/10/meme-meo-khoc-thet.jpg" alt="avatar" width="200px" height="200px" style="border-radius:50%; margin: auto; display: block;">
-    </div>
+    @if($curuser->avatar)
+        <img src="{{ url("storage/".$curuser->avatar)}}" alt="avatar" width="200px" height="200px" style="border-radius:50%; margin: auto; display: block;">
+    @else
+        <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg" alt="avatar" width="200px" height="200px" style="border-radius:50%; margin: auto; display: block;">
+    @endif
     <div class="mb-3">
         <label for="usr" class="form-label">User name: </label>
         <input type="text" class="form-control" name="urs" require="true" value="{{ $curuser->username }}" disabled="disabled">

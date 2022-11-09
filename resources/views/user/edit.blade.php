@@ -10,7 +10,11 @@
             @csrf
             @method('put')
             <div class="mb-3">
-                <img src="https://tutihealth.com/wp-content/uploads/2022/10/meme-meo-khoc-thet.jpg" alt="avatar" width="200px" height="200px" style="border-radius:50%; margin: auto; display: block;">
+                @if($user->avatar)
+                    <img src="{{ url("storage/".$user->avatar)}}" alt="avatar" width="200px" height="200px" style="border-radius:50%; margin: auto; display: block;">
+                @else
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-portrait-176256935.jpg" alt="avatar" width="200px" height="200px" style="border-radius:50%; margin: auto; display: block;">
+                @endif
             </div>
             <div class="mb-3">
                 <label for="usr" class="form-label">User name: </label>

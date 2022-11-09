@@ -34,31 +34,31 @@ Route::post('changePassword', [AuthController::class, 'handleChangePassword'])->
 
 Route::prefix('userList')->middleware('user.login')->group(function() {
     Route::get('', [UsersController::class, 'index'])->name('userList.index');
-    Route::get('create', [UsersController::class, 'create'])->name('userList.create');
-    Route::post('store', [UsersController::class, 'store'])->name('userList.store');
-    Route::get('edit/{id}', [UsersController::class, 'edit'])->name('userList.edit');
-    Route::put('update/{id}', [UsersController::class, 'update'])->name('userList.update');
-    Route::get('delete/{id}', [UsersController::class, 'delete'])->name('userList.delete');
-    Route::get('detail/{id}', [UsersController::class, 'detail'])->name('userList.detail');
+    Route::get('create', [UsersController::class, 'create'])->middleware('isteacher')->name('userList.create');
+    Route::post('store', [UsersController::class, 'store'])->middleware('isteacher')->name('userList.store');
+    Route::get('edit/{id}', [UsersController::class, 'edit'])->middleware('isteacher')->name('userList.edit');
+    Route::put('update/{id}', [UsersController::class, 'update'])->middleware('isteacher')->name('userList.update');
+    Route::get('delete/{id}', [UsersController::class, 'delete'])->middleware('isteacher')->name('userList.delete');
+    Route::get('detail/{id}', [UsersController::class, 'detail'])->middleware('isteacher')->name('userList.detail');
 });
 
 Route::prefix('classroom')->middleware('user.login')->group(function(){
     Route::get('', [AssignmentController::class, 'index'])->name('classroom.index');
-    Route::get('create', [AssignmentController::class, 'create'])->name('classroom.create');
-    Route::post('store', [AssignmentController::class, 'store'])->name('classroom.store');
+    Route::get('create', [AssignmentController::class, 'create'])->middleware('isteacher')->name('classroom.create');
+    Route::post('store', [AssignmentController::class, 'store'])->middleware('isteacher')->name('classroom.store');
     Route::get('{id}/downloadAssignment', [AssignmentController::class, 'downloadAssignment'])->name('classroom.assignment.download');
-    Route::get('detail/{id}', [SubmissionController::class, 'detail'])->name('classroom.assignment.detail');
-    Route::get('submit/{id}', [SubmissionController::class, 'submit'])->name('classroom.assignment.submit');
-    Route::post('handle_submit', [SubmissionController::class, 'handleSubmit'])->name('classroom.submission.submit');
-    Route::get('{id}/downloadSubmission', [SubmissionController::class, 'downloadSubmission'])->name('classroom.submission.download');
+    Route::get('detail/{id}', [SubmissionController::class, 'detail'])->middleware('isteacher')->name('classroom.assignment.detail');
+    Route::get('submit/{id}', [SubmissionController::class, 'submit'])->middleware('isstudent')->name('classroom.assignment.submit');
+    Route::post('handle_submit', [SubmissionController::class, 'handleSubmit'])->middleware('isstudent')->name('classroom.submission.submit');
+    Route::get('{id}/downloadSubmission', [SubmissionController::class, 'downloadSubmission'])->middleware('isteacher')->name('classroom.submission.download');
 });
 
 Route::prefix('challenge')->middleware('user.login')->group(function(){
     Route::get('', [ChallengeController::class, 'index'])->name('challenge.index');
-    Route::get('create', [ChallengeController::class, 'create'])->name('challenge.create');
-    Route::post('store', [ChallengeController::class, 'store'])->name('challenge.store');
-    Route::get('answer/{id}', [ChallengeController::class, 'answer'])->name('challenge.answer');
-    Route::post('submit', [ChallengeController::class, 'submit'])->name('challenge.submit');
-    
-    
+    Route::get('create', [ChallengeController::class, 'create'])->middleware('isteacher')->name('challenge.create');
+    Route::post('store', [ChallengeController::class, 'store'])->middleware('isteacher')->name('challenge.store');
+    Route::get('answer/{id}', [ChallengeController::class, 'answer'])->middleware('isstudent')->name('challenge.answer');
+    Route::post('submit', [ChallengeController::class, 'submit'])->middleware('isstudent')->name('challenge.submit');
+
+
 });
