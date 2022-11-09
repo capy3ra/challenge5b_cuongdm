@@ -16,7 +16,8 @@ class AuthController extends Controller
     }
 
     public function checkLogin(Request $request){
-//         dd(Hash::make($request->password));
+        // dd(Hash::make($request->password));
+        // dd(Hash::make('123456a@A'));
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
             return redirect()->route('index');
         }
